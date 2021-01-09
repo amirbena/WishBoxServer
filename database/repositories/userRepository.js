@@ -1,6 +1,6 @@
 const { UserModel } = require('../models');
 
-const createUser = async ({ fullName, numGuests, email, password, address, country, phone }) => {
+const createUser = async ({ fullName, numGuests, email, password, address, country, phone, isAdmin = false }) => {
     let user = await UserModel.findOne({ email }).exec();
     if (user) return "User with same email exist";
     user = await new UserModel({
@@ -9,6 +9,8 @@ const createUser = async ({ fullName, numGuests, email, password, address, count
         password,
         address,
         country,
+        isAdmin,
+        email,
         phone
     }).save();
 

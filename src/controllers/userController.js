@@ -54,7 +54,7 @@ const getAllUsersExceptCurrent = async (req, res) => {
 
 }
 
-const updateUserDetails = async (req, res) => {
+const changeUserAsAdmin = async (req, res) => {
     try {
         const { id } = req.user;
         const { userId } = req.body;
@@ -71,7 +71,7 @@ module.exports = {
     signup,
     signin,
     getAllUsersExceptCurrent,
-    updateUserDetails
+    changeUserAsAdmin
 }
 
 

@@ -7,7 +7,7 @@ const authorization = require('../middlewares/authorization');
 router.post('/signup', UserController.signup);
 router.post('/signin', UserController.signin);
 router.get('/admin', authentication, authorization, UserController.getAllUsersExceptCurrent);
-router.put('/', authentication, authorization, UserController.updateUserDetails);
+router.put('/', authentication, authorization, UserController.changeUserAsAdmin);
 
 
 

@@ -19,7 +19,8 @@ const updateRoomDetails = async (_id, newDetails) => {
 
 const getAvailableRooms = async (numGuests, startDate, endDate) => {
     const reservations = await ReservationModel.find({ startDate, endDate }).exec();
-    let rooms = await RoomModel.find({ guestsCapacity: { $lte: numGuests } }).exec();
+    let rooms = await RoomModel.find({ guestsCapacity: { $gte: numGuests } }).exec();
+    if(!reservations.length) return rooms;
     rooms = rooms.filter(room => reservations.find(reseveration => reseveration.room === room._id));
     return rooms;
 }

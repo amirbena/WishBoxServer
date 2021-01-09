@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const RoomModel = new mongoose.Schema({
     number: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     guestsCapacity: {
         type: Number,

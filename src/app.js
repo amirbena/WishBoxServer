@@ -10,9 +10,9 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-/**
- * Section for routes
- */
+app.use('/users', routes.UserRoute);
+app.use('/rooms', routes.RoomRoute);
+app.use('/reservations', routes.ReservationRoute);
 
 
 const PORT = process.env.PORT || 80;

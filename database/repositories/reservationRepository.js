@@ -35,7 +35,7 @@ const createReservation = async ({ user, room, startDate, endDate, totalPrice, e
         extras
     }).save();
 
-    return reservation.populate("room", "number").populate("user", "fullName");
+    return reservation.populate("room", "number").populate("user", "fullName").execPopulate();
 }
 
 const updateReservation = async (_id, detailsToUpdate) => {
@@ -47,7 +47,7 @@ const updateReservation = async (_id, detailsToUpdate) => {
         detailsToUpdate
     }
     await reservation.save();
-    return reservation.populate("room", "number").populate("user", "fullName");
+    return reservation.populate("room", "number").populate("user", "fullName").execPopulate();
 }
 
 const deleteReservation = async _id => {

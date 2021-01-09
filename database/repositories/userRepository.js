@@ -1,6 +1,6 @@
 const { UserModel } = require('../models');
 
-const createUser = async ({ fullName, numGuests, email, password, address, country, phone }) => {
+const createUser = async ({ fullName, numGuests, email, password, address, country, phone, isAdmin = false }) => {
     let user = await UserModel.findOne({ email }).exec();
     if (user) return "User with same email exist";
     user = await new UserModel({
@@ -9,6 +9,8 @@ const createUser = async ({ fullName, numGuests, email, password, address, count
         password,
         address,
         country,
+        isAdmin,
+        email,
         phone
     }).save();
 
@@ -26,7 +28,6 @@ const login = async (email, password) => {
 const changeUserStatus = async (adminId, userChangeId) => {
     const admin = await UserModel.findById(adminId).exec();
     if (!admin) return "Admin not exist";
-    if (!admin.isAdmin) return "User is not admin, can't permit this module";
     const user = await UserModel.findById(userChangeId).exec();
     if (!user) return "User not exist";
     user.isAdmin = !user.isAdmin;
@@ -38,6 +39,10 @@ const getAllUsers = async () => {
     return await UserModel.find({}).exec();
 }
 
+const getAllUsersExceptId = async _id => {
+    return await UserModel.find({ _id: { $not: { _id } } }).exec();
+}
+
 const getUserById = async id => {
     return await UserModel.findById(id).exec();
 }
@@ -47,5 +52,6 @@ module.exports = {
     login,
     changeUserStatus,
     getAllUsers,
+    getAllUsersExceptId,
     getUserById
 }
